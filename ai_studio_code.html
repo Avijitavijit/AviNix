@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AviNix — Premium Gifts & Gadgets</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#C9A84C;--gold-light:#E8D5A3;--gold-dark:#8B6914;--black:#0C0C0C;--off-black:#141414;--dark:#1A1A1A;--text:#E8E4DC;--muted:#9A9590;--cream:#F5F0E8}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--text);font-family:'Jost',sans-serif;font-weight:300;overflow-x:hidden;cursor:none}
+.cur{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s}
+.cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(201,168,76,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .15s}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--black)}::-webkit-scrollbar-thumb{background:var(--gold-dark)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:22px 60px;background:linear-gradient(to bottom,rgba(12,12,12,.95),transparent);backdrop-filter:blur(2px)}
+.logo{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;letter-spacing:6px;color:var(--gold);text-decoration:none}
+.logo em{font-style:italic;color:var(--gold-light)}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:11px;letter-spacing:3px;text-transform:uppercase;transition:color .3s}
+.nav-links a:hover{color:var(--gold)}
+.nav-r{display:flex;align-items:center;gap:14px}
+.lang-wrap{display:flex;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.25);border-radius:30px;overflow:hidden}
+.lb{padding:7px 14px;font-size:10px;letter-spacing:2px;text-transform:uppercase;background:transparent;border:none;color:var(--muted);cursor:none;transition:all .25s;font-family:'Jost',sans-serif}
+.lb.on{background:var(--gold);color:var(--black);font-weight:500;border-radius:30px}
+.nav-cta{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:9px 24px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;cursor:none;transition:all .3s;text-decoration:none}
+.nav-cta:hover{background:var(--gold);color:var(--black)}
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:0 60px}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 70% 50%,rgba(201,168,76,.06),transparent 70%),radial-gradient(ellipse 40% 60% at 20% 80%,rgba(201,168,76,.03),transparent 60%)}
+.hero-line{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.hero-line::before{content:'';position:absolute;top:0;left:50%;width:1px;height:100%;background:linear-gradient(to bottom,transparent,rgba(201,168,76,.15),transparent);transform:translateX(-50%)}
+.hero-body{position:relative;z-index:1;max-width:700px}
+.eyebrow{font-size:10px;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-bottom:28px;display:flex;align-items:center;gap:16px}
+.eyebrow::before{content:'';width:40px;height:1px;background:var(--gold)}
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,7vw,90px);font-weight:300;line-height:1.05;margin-bottom:28px}
+h1 em{font-style:italic;color:var(--gold);display:block}
+.hero-desc{font-size:14px;line-height:1.9;color:var(--muted);max-width:440px;margin-bottom:48px}
+.hero-acts{display:flex;align-items:center;gap:32px}
+.btn-gold{background:var(--gold);color:var(--black);padding:16px 44px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:400;cursor:none;border:none;transition:all .3s;text-decoration:none;display:inline-block}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-1px)}
+.btn-line{color:var(--muted);font-size:11px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;display:flex;align-items:center;gap:10px;transition:color .3s}
+.btn-line::after{content:'→';transition:transform .3s}
+.btn-line:hover{color:var(--gold)}
+.btn-line:hover::after{transform:translateX(4px)}
+.badge{position:absolute;right:80px;top:50%;transform:translateY(-50%);width:140px;height:140px;border:1px solid rgba(201,168,76,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;animation:spin 20s linear infinite}
+.badge-in{font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--gold);line-height:1.5}
+.badge-in b{font-size:28px;display:block;margin-bottom:4px;font-weight:300}
+@keyframes spin{from{transform:translateY(-50%) rotate(0)}to{transform:translateY(-50%) rotate(360deg)}}
+.mq{border-top:1px solid rgba(201,168,76,.1);border-bottom:1px solid rgba(201,168,76,.1);padding:18px 0;overflow:hidden;background:rgba(201,168,76,.02)}
+.mq-track{display:flex;gap:60px;animation:mq 28s linear infinite;white-space:nowrap}
+.mq-row{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:60px}
+.dot{color:var(--gold)}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+section{padding:100px 60px}
+.s-tag{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:14px}
+.s-tag::before{content:'';width:30px;height:1px;background:var(--gold)}
+h2{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,58px);font-weight:300;line-height:1.1;margin-bottom:48px}
+.cat-grid{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:auto auto;gap:2px}
+.cat{position:relative;overflow:hidden;background:var(--dark);cursor:none;min-height:280px;display:flex;flex-direction:column;justify-content:flex-end;padding:32px;transition:all .5s}
+.cat.big{grid-row:span 2;min-height:560px}
+.cat::before{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(12,12,12,.9),transparent 60%);z-index:1}
+.cat-icon{position:absolute;inset:0;font-size:120px;display:flex;align-items:center;justify-content:center;opacity:.06;transition:opacity .5s,transform .5s}
+.cat:hover .cat-icon{opacity:.1;transform:scale(1.1)}
+.cat-body{position:relative;z-index:2}
+.cat-num{font-family:'Cormorant Garamond',serif;font-size:12px;color:var(--gold);letter-spacing:3px;margin-bottom:8px}
+.cat-name{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;margin-bottom:16px}
+.cat-link{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);text-decoration:none;display:flex;align-items:center;gap:8px;opacity:0;transform:translateY(8px);transition:all .3s}
+.cat:hover .cat-link{opacity:1;transform:translateY(0)}
+.prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.prod{cursor:none;transition:transform .4s;background:rgba(255,255,255,0.02);padding-bottom:15px}
+.prod:hover{transform:translateY(-6px)}
+.prod-img{background:var(--dark);aspect-ratio:1/1;margin-bottom:16px;display:flex;align-items:center;justify-content:center;font-size:84px;position:relative;border:1px solid rgba(201,168,76,.07);transition:border-color .3s;overflow:hidden}
+.prod:hover .prod-img{border-color:rgba(201,168,76,.4)}
+.prod-badge{position:absolute;top:16px;left:16px;background:var(--gold);color:var(--black);font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;font-weight:600;z-index:2}
+.prod-name{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:300;margin-bottom:10px;padding:0 15px}
+.prod-foot{display:flex;align-items:center;justify-content:space-between;padding:0 15px}
+.prod-price{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold)}
+.prod-price small{font-size:13px;color:var(--muted);font-family:'Jost',sans-serif}
+.prod-btn{width:36px;height:36px;border:1px solid rgba(201,168,76,.3);background:transparent;color:var(--gold);cursor:none;font-size:18px;transition:all .3s;display:flex;align-items:center;justify-content:center}
+.prod-btn:hover{background:var(--gold);color:var(--black)}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid rgba(201,168,76,.1)}
+.why{padding:48px 40px;border-right:1px solid rgba(201,168,76,.1);transition:background .3s}
+.why:last-child{border-right:none}
+.why:hover{background:rgba(201,168,76,.03)}
+.why-icon{font-size:32px;margin-bottom:24px;display:block}
+.why h3{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;margin-bottom:16px}
+.why p{font-size:13px;color:var(--muted);line-height:1.9}
+.testi{background:var(--dark);border-top:1px solid rgba(201,168,76,.1);border-bottom:1px solid rgba(201,168,76,.1);text-align:center}
+.testi blockquote{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3vw,34px);font-style:italic;font-weight:300;line-height:1.6;max-width:760px;margin:0 auto 32px;color:var(--cream)}
+.testi cite{font-size:11px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;font-style:normal}
+.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.contact-info p{font-size:13px;color:var(--muted);line-height:1.9;margin-bottom:40px}
+.crows{display:flex;flex-direction:column;margin-bottom:40px}
+.crow{display:flex;align-items:center;gap:16px;font-size:13px;color:var(--muted);border-bottom:1px solid rgba(201,168,76,.08);padding:14px 0}
+.crow strong{color:var(--text);min-width:80px}
+.cform{display:flex;flex-direction:column;gap:16px}
+.cform input,.cform textarea{background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.15);color:var(--text);padding:16px 20px;font-family:'Jost',sans-serif;font-size:13px;font-weight:300;outline:none;transition:border-color .3s;resize:none}
+.cform input::placeholder,.cform textarea::placeholder{color:var(--muted)}
+.cform input:focus,.cform textarea:focus{border-color:var(--gold)}
+.cform button{background:var(--gold);color:var(--black);border:none;padding:16px;cursor:none;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:500;transition:background .3s}
+.cform button:hover{background:var(--gold-light)}
+footer{padding:60px;border-top:1px solid rgba(201,168,76,.1);display:flex;align-items:center;justify-content:space-between}
+.f-logo{font-family:'Cormorant Garamond',serif;font-size:22px;letter-spacing:6px;color:var(--gold)}
+.f-copy{font-size:11px;color:var(--muted)}
+.f-social{display:flex;gap:24px}
+.f-social a{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s}
+.f-social a:hover{color:var(--gold)}
+.divider{display:flex;align-items:center;gap:20px;margin:0 60px;opacity:.15}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--gold)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.fu{animation:fadeUp .9s cubic-bezier(.25,.46,.45,.94) both}
+.d1{animation-delay:.15s}.d2{animation-delay:.3s}.d3{animation-delay:.45s}
+[data-bn]{display:none!important}
+body.bn [data-en]{display:none!important}
+body.bn [data-bn]{display:revert!important}
+@media(max-width:900px){nav{padding:18px 20px}.nav-links{display:none}section{padding:60px 20px}.hero{padding:0 20px}.badge{display:none}.cat-grid{grid-template-columns:1fr}.cat.big{min-height:300px}.prod-grid{grid-template-columns:1fr 1fr}.why-grid{grid-template-columns:1fr}.why{border-right:none;border-bottom:1px solid rgba(201,168,76,.1)}.contact-wrap{grid-template-columns:1fr;gap:40px}footer{flex-direction:column;gap:24px;text-align:center}.divider{margin:0 20px}}
+@media(max-width:500px){.prod-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="ring"></div>
+
+<nav>
+  <a href="#" class="logo">Avi<em>Nix</em></a>
+  <ul class="nav-links">
+    <li><a href="#categories" data-en>Collection</a><a href="#categories" data-bn>কালেকশন</a></li>
+    <li><a href="#products" data-en>Products</a><a href="#products" data-bn>পণ্যসমূহ</a></li>
+    <li><a href="#about" data-en>About</a><a href="#about" data-bn>আমাদের সম্পর্কে</a></li>
+    <li><a href="#contact" data-en>Contact</a><a href="#contact" data-bn>যোগাযোগ</a></li>
+  </ul>
+  <div class="nav-r">
+    <div class="lang-wrap">
+      <button class="lb on" id="bEN" onclick="setLang('en')">EN</button>
+      <button class="lb" id="bBN" onclick="setLang('bn')">বাং</button>
+    </div>
+    <a href="#contact" class="nav-cta" data-en>Order Now</a>
+    <a href="#contact" class="nav-cta" data-bn>অর্ডার করুন</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-line"></div>
+  <div class="hero-body">
+    <p class="eyebrow fu" data-en>Premium Gift Experience</p>
+    <p class="eyebrow fu" data-bn>প্রিমিয়াম গিফট এক্সপেরিয়েন্স</p>
+    <h1 class="fu d1" data-en>Gifts That<br><em>Speak Louder</em></h1>
+    <h1 class="fu d1" data-bn>উপহার যা<br><em>বলে অনেক কিছু</em></h1>
+    <p class="hero-desc fu d2" data-en>The finest gadgets, showpieces &amp; gift items — sourced from top manufacturers and delivered across Bangladesh with premium packaging.</p>
+    <p class="hero-desc fu d2" data-bn>সেরা গ্যাজেট, শোপিস ও গিফট আইটেম — শীর্ষ ম্যানুফ্যাকচারার থেকে আনা, প্রিমিয়াম প্যাকেজিংয়ে সারা বাংলাদেশে ডেলিভারি।</p>
+    <div class="hero-acts fu d3">
+      <a href="#products" class="btn-gold" data-en>Explore Collection</a>
+      <a href="#products" class="btn-gold" data-bn>কালেকশন দেখুন</a>
+      <a href="#contact" class="btn-line" data-en>Order Now</a>
+      <a href="#contact" class="btn-line" data-bn>অর্ডার করুন</a>
+    </div>
+  </div>
+  <div class="badge"><div class="badge-in"><b>✦</b><span data-en>Premium<br>Quality</span><span data-bn>প্রিমিয়াম<br>মান</span></div></div>
+</section>
+
+<div class="mq">
+  <div class="mq-track">
+    <div class="mq-row">Gifts<span class="dot">◆</span>Gadgets<span class="dot">◆</span>Showpieces<span class="dot">◆</span>Premium Quality<span class="dot">◆</span>Fast Delivery<span class="dot">◆</span>Best Price<span class="dot">◆</span>Couple Gifts<span class="dot">◆</span>LED Gadgets<span class="dot">◆</span></div>
+    <div class="mq-row">Gifts<span class="dot">◆</span>Gadgets<span class="dot">◆</span>Showpieces<span class="dot">◆</span>Premium Quality<span class="dot">◆</span>Fast Delivery<span class="dot">◆</span>Best Price<span class="dot">◆</span>Couple Gifts<span class="dot">◆</span>LED Gadgets<span class="dot">◆</span></div>
+  </div>
+</div>
+
+<section id="categories">
+  <p class="s-tag" data-en>Our Collections</p>
+  <p class="s-tag" data-bn>আমাদের কালেকশন</p>
+  <h2 data-en>Shop by Category</h2>
+  <h2 data-bn>ক্যাটাগরি অনুযায়ী কিনুন</h2>
+  <div class="cat-grid">
+    <div class="cat big"><div class="cat-icon">🎁</div><div class="cat-body"><div class="cat-num">01</div><div class="cat-name" data-en>Gift Sets</div><div class="cat-name" data-bn>গিফট সেট ও কম্বো</div><a href="#products" class="cat-link" data-en>Explore →</a><a href="#products" class="cat-link" data-bn>দেখুন →</a></div></div>
+    <div class="cat"><div class="cat-icon">⚡</div><div class="cat-body"><div class="cat-num">02</div><div class="cat-name" data-en>Smart Gadgets</div><div class="cat-name" data-bn>স্মার্ট গ্যাজেট</div><a href="#products" class="cat-link" data-en>Explore →</a><a href="#products" class="cat-link" data-bn>দেখুন →</a></div></div>
+    <div class="cat"><div class="cat-icon">💑</div><div class="cat-body"><div class="cat-num">03</div><div class="cat-name" data-en>Couple Gifts</div><div class="cat-name" data-bn>কাপল গিফট</div><a href="#products" class="cat-link" data-en>Explore →</a><a href="#products" class="cat-link" data-bn>দেখুন →</a></div></div>
+    <div class="cat"><div class="cat-icon">🏺</div><div class="cat-body"><div class="cat-num">04</div><div class="cat-name" data-en>Showpieces</div><div class="cat-name" data-bn>ডেস্ক শোপিস</div><a href="#products" class="cat-link" data-en>Explore →</a><a href="#products" class="cat-link" data-bn>দেখুন →</a></div></div>
+    <div class="cat"><div class="cat-icon">✨</div><div class="cat-body"><div class="cat-num">05</div><div class="cat-name" data-en>LED &amp; Novelty</div><div class="cat-name" data-bn>LED গ্যাজেট</div><a href="#products" class="cat-link" data-en>Explore →</a><a href="#products" class="cat-link" data-bn>দেখুন →</a></div></div>
+  </div>
+</section>
+
+<div class="divider"><span>◆</span></div>
+
+<section id="products">
+  <p class="s-tag" data-en>Bestsellers</p>
+  <p class="s-tag" data-bn>সেরা বিক্রিত</p>
+  <h2 data-en>Featured Products</h2>
+  <h2 data-bn>ফিচার্ড পণ্যসমূহ</h2>
+  <div class="prod-grid">
+    <!-- Product 1 -->
+    <div class="prod">
+        <div class="prod-img">🌹<span class="prod-badge">Best Seller</span></div>
+        <div class="prod-name" data-en>Crystal Rose Lamp</div>
+        <div class="prod-name" data-bn>ক্রিস্টাল রোজ ল্যাম্প</div>
+        <div class="prod-foot"><div class="prod-price">৳850</div><button class="prod-btn">+</button></div>
+    </div>
+    <!-- Product 2 -->
+    <div class="prod">
+        <div class="prod-img">⌚<span class="prod-badge">New</span></div>
+        <div class="prod-name" data-en>Smart Watch Pro v2</div>
+        <div class="prod-name" data-bn>স্মার্ট ওয়াচ প্রো v2</div>
+        <div class="prod-foot"><div class="prod-price">৳2,150</div><button class="prod-btn">+</button></div>
+    </div>
+    <!-- Product 3 -->
+    <div class="prod">
+        <div class="prod-img">🖼️</div>
+        <div class="prod-name" data-en>Personalized Glass Frame</div>
+        <div class="prod-name" data-bn>কাস্টম গ্লাস ফ্রেম</div>
+        <div class="prod-foot"><div class="prod-price">৳1,250</div><button class="prod-btn">+</button></div>
+    </div>
+    <!-- Product 4 -->
+    <div class="prod">
+        <div class="prod-img">🔮<span class="prod-badge">Popular</span></div>
+        <div class="prod-name" data-en>Galaxy Star Projector</div>
+        <div class="prod-name" data-bn>গ্যালাক্সি স্টার প্রজেক্টর</div>
+        <div class="prod-foot"><div class="prod-price">৳1,800</div><button class="prod-btn">+</button></div>
+    </div>
+    <!-- Product 5 -->
+    <div class="prod">
+        <div class="prod-img">💧</div>
+        <div class="prod-name" data-en>Anti-Gravity Humidifier</div>
+        <div class="prod-name" data-bn>অ্যান্টি-গ্র্যাভিটি হিউমিডিফায়ার</div>
+        <div class="prod-foot"><div class="prod-price">৳2,450</div><button class="prod-btn">+</button></div>
+    </div>
+    <!-- Product 6 -->
+    <div class="prod">
+        <div class="prod-img">📻</div>
+        <div class="prod-name" data-en>Retro Bluetooth Speaker</div>
+        <div class="prod-name" data-bn>রেট্রো ব্লুটুথ স্পিকার</div>
+        <div class="prod-foot"><div class="prod-price">৳3,200</div><button class="prod-btn">+</button></div>
+    </div>
+    <!-- Product 7 -->
+    <div class="prod">
+        <div class="prod-img">⏳<span class="prod-badge">Limited</span></div>
+        <div class="prod-name" data-en>Moving Sand Art Frame</div>
+        <div class="prod-name" data-bn>মুভিং স্যান্ড আর্ট ফ্রেম</div>
+        <div class="prod-foot"><div class="prod-price">৳1,650</div><button class="prod-btn">+</button></div>
+    </div>
+    <!-- Product 8 -->
+    <div class="prod">
+        <div class="prod-img">☕</div>
+        <div class="prod-name" data-en>Smart Coffee Mug Warmer</div>
+        <div class="prod-name" data-bn>স্মার্ট কফি মগ ওয়ার্মার</div>
+        <div class="prod-foot"><div class="prod-price">৳950</div><button class="prod-btn">+</button></div>
+    </div>
+    <!-- Product 9 -->
+    <div class="prod">
+        <div class="prod-img">🌙</div>
+        <div class="prod-name" data-en>Levitating Moon Lamp</div>
+        <div class="prod-name" data-bn>লেভিটেটিং মুন ল্যাম্প</div>
+        <div class="prod-foot"><div class="prod-price">৳4,500</div><button class="prod-btn">+</button></div>
+    </div>
+    <!-- Product 10 -->
+    <div class="prod">
+        <div class="prod-img">🖊️</div>
+        <div class="prod-name" data-en>Luxury Executive Pen Set</div>
+        <div class="prod-name" data-bn>লাক্সারি এক্সিকিউটিভ পেন সেট</div>
+        <div class="prod-foot"><div class="prod-price">৳1,400</div><button class="prod-btn">+</button></div>
+    </div>
+    <!-- Product 11 -->
+    <div class="prod">
+        <div class="prod-img">🌤️</div>
+        <div class="prod-name" data-en>Sunset Projection Lamp</div>
+        <div class="prod-name" data-bn>সানসেট প্রজেকশন ল্যাম্প</div>
+        <div class="prod-foot"><div class="prod-price">৳750</div><button class="prod-btn">+</button></div>
+    </div>
+    <!-- Product 12 -->
+    <div class="prod">
+        <div class="prod-img">⌨️<span class="prod-badge">Trend</span></div>
+        <div class="prod-name" data-en>RGB Mechanical Keyboard</div>
+        <div class="prod-name" data-bn>RGB মেকানিক্যাল কিবোর্ড</div>
+        <div class="prod-foot"><div class="prod-price">৳3,800</div><button class="prod-btn">+</button></div>
+    </div>
+  </div>
+</section>
+
+<section id="about" style="background:var(--off-black)">
+  <p class="s-tag" data-en>Why AviNix</p>
+  <p class="s-tag" data-bn>কেন AviNix</p>
+  <h2 data-en>Why Choose Us</h2>
+  <h2 data-bn>কেন আমাদের বেছে নেবেন</h2>
+  <div class="why-grid">
+    <div class="why"><span class="why-icon">🏆</span><h3 data-en>Premium Quality</h3><h3 data-bn>সর্বোচ্চ মান</h3><p data-en>Every product is sourced from top manufacturers and quality-checked before it reaches you.</p><p data-bn>প্রতিটি পণ্য শীর্ষ ম্যানুফ্যাকচারার থেকে আনা হয় এবং বিক্রির আগে মান যাচাই করা হয়।</p></div>
+    <div class="why"><span class="why-icon">🚚</span><h3 data-en>Fast Delivery</h3><h3 data-bn>দ্রুত ডেলিভারি</h3><p data-en>1–2 days in Dhaka, 3–5 days anywhere in Bangladesh — delivered to your doorstep.</p><p data-bn>ঢাকায় ১–২ দিন, সারা বাংলাদেশে ৩–৫ দিনের মধ্যে আপনার দোরগোড়ায়।</p></div>
+    <div class="why"><span class="why-icon">💬</span><h3 data-en>24/7 Support</h3><h3 data-bn>সার্বক্ষণিক সহায়তা</h3><p data-en>Message us on WhatsApp anytime — we're always here for orders, tracking, and questions.</p><p data-bn>WhatsApp-এ যেকোনো সময় মেসেজ করুন — অর্ডার, ট্র্যাকিং ও যেকোনো প্রশ্নে আমরা সবসময় আছি।</p></div>
+  </div>
+</section>
+
+<section class="testi">
+  <p class="s-tag" style="justify-content:center;margin-bottom:40px" data-en>Customer Love</p>
+  <p class="s-tag" style="justify-content:center;margin-bottom:40px" data-bn>কাস্টমারদের কথা</p>
+  <blockquote data-en>"I ordered a gift for my sister from AviNix — from the packaging to the product quality, absolutely everything was wonderful."</blockquote>
+  <blockquote data-bn>"AviNix থেকে বোনের জন্য গিফট নিয়েছিলাম — প্যাকেজিং থেকে শুরু করে প্রোডাক্ট কোয়ালিটি সব কিছুই অসাধারণ ছিল।"</blockquote>
+  <cite data-en>— Raheela Akhter, Dhaka</cite>
+  <cite data-bn>— রাহেলা আক্তার, ঢাকা</cite>
+</section>
+
+<section id="contact">
+  <p class="s-tag" data-en>Get In Touch</p>
+  <p class="s-tag" data-bn>যোগাযোগ করুন</p>
+  <h2 data-en>Order Now</h2>
+  <h2 data-bn>অর্ডার করুন এখনই</h2>
+  <div class="contact-wrap">
+    <div class="contact-info">
+      <p data-en>Contact us on WhatsApp or Facebook. We're ready to help with orders, pricing, and delivery anytime.</p>
+      <p data-bn>WhatsApp বা Facebook-এ যোগাযোগ করুন। অর্ডার, দাম ও ডেলিভারি সম্পর্কে আমরা সবসময় সাহায্য করতে প্রস্তুত।</p>
+      <div class="crows">
+        <div class="crow"><strong>WhatsApp</strong><span>+880 1XXX-XXXXXX</span></div>
+        <div class="crow"><strong>Facebook</strong><span>facebook.com/AviNix</span></div>
+        <div class="crow"><strong>Instagram</strong><span>instagram.com/AviNix</span></div>
+        <div class="crow"><strong data-en>Delivery</strong><strong data-bn>ডেলিভারি</strong><span data-en>All across Bangladesh</span><span data-bn>সারা বাংলাদেশে</span></div>
+      </div>
+      <a href="https://wa.me/880" class="btn-gold" data-en>WhatsApp Us →</a>
+      <a href="https://wa.me/880" class="btn-gold" data-bn>WhatsApp করুন →</a>
+    </div>
+    <div class="cform">
+      <input type="text" id="fn" placeholder="Your Name">
+      <input type="tel" id="fp" placeholder="Phone Number">
+      <input type="text" id="fpr" placeholder="Which product are you interested in?">
+      <textarea rows="4" id="fm" placeholder="Your message..."></textarea>
+      <button type="button" data-en>Send Message</button>
+      <button type="button" data-bn>মেসেজ পাঠান</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-logo">AviNix</div>
+  <div class="f-copy" data-en>© 2025 AviNix. All rights reserved.</div>
+  <div class="f-copy" data-bn>© ২০২৫ AviNix. সর্বস্বত্ব সংরক্ষিত।</div>
+  <div class="f-social"><a href="#">Facebook</a><a href="#">Instagram</a><a href="#">WhatsApp</a></div>
+</footer>
+
+<script>
+const C=document.getElementById('cur'),R=document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+(function t(){C.style.left=mx+'px';C.style.top=my+'px';rx+=(mx-rx)*.12;ry+=(my-ry)*.12;R.style.left=rx+'px';R.style.top=ry+'px';requestAnimationFrame(t)})();
+document.querySelectorAll('a,button,.cat,.prod').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{C.style.width='16px';C.style.height='16px';R.style.width='56px';R.style.height='56px'});
+  el.addEventListener('mouseleave',()=>{C.style.width='8px';C.style.height='8px';R.style.width='36px';R.style.height='36px'});
+});
+const ob=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('iv')}),{threshold:.1});
+document.querySelectorAll('.cat,.prod,.why').forEach(el=>{el.style.cssText+='opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s;';ob.observe(el)});
+document.head.insertAdjacentHTML('beforeend','<style>.iv{opacity:1!important;transform:none!important}</style>');
+const ph={en:{fn:'Your Name',fp:'Phone Number',fpr:'Which product are you interested in?',fm:'Your message...'},bn:{fn:'আপনার নাম',fp:'মোবাইল নম্বর',fpr:'আপনি কোন প্রোডাক্ট চান?',fm:'বিস্তারিত লিখুন...'}};
+function setLang(l){
+  document.body.classList.toggle('bn',l==='bn');
+  document.getElementById('bEN').classList.toggle('on',l==='en');
+  document.getElementById('bBN').classList.toggle('on',l==='bn');
+  Object.keys(ph.en).forEach(id=>{const el=document.getElementById(id);if(el)el.placeholder=ph[l][id]});
+}
+
+// Simple Add to Cart Simulation
+document.querySelectorAll('.prod-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const name = btn.closest('.prod').querySelector('[data-en]').innerText;
+        alert(name + " added to inquiry list!");
+    });
+});
+</script>
+</body>
+</html>
